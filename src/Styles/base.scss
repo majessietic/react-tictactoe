@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f7f7f7;
+  margin: 0;
+  height: auto;
+  font-family: 'Lato', sans-serif;
+}
+
+main {
+  max-width: 100vh;
+  margin: auto;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 1 35vh;
+  height: 30vh;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.gameboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex: 0 1 65vh;
+  height: 70vh;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.board {
+  width: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cells {
+  border: 2px solid #000;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    height: 120px;
+    width: 120px;
+    transition: .3s;
+  }
+
+  &::after {
+    border: 0px solid #a00;
+  }
+}
+
+.cells.x-marked {
+  &::after {
+    background: #0a0;
+    height: (60/100)*120px;
+    width: 3px;
+    transform: rotateZ(-45deg);
+  }
+
+  &::before {
+    background: #0a0;
+    height: (60/100)*120px;
+    width: 3px;
+    transform: rotateZ(45deg);
+  }
+}
+
+.cells.o-marked {
+  &::after {
+    border: 4px solid #a00;
+    border-radius: 100%;
+    width: (60/100)*120px;
+    height: (60/100)*120px;
+  }
+}
+
+@media (min-width: 850px) {
+  .content {
+    display: flex;
+    height: 100%;
+  }
+
+  .scoreboard {
+    height: 100vh;
+  }
+
+  .gameboard {
+    height: 100vh;
+  }
+}
