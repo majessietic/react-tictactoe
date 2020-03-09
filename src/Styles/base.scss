@@ -18,7 +18,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 0 1 35vh;
+  text-align: center;
   height: 30vh;
   padding-right: 1rem;
   padding-left: 1rem;
@@ -29,12 +29,76 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  flex: 0 1 65vh;
   height: 70vh;
   padding-right: 1rem;
   padding-left: 1rem;
   margin: 0;
+}
+
+.gamecontrol {
+  background: #333;
+  width: 470px;
+  margin: 20px auto;
+  box-shadow: 0 4px 0 #333;
+  border-radius: 15px;
+}
+
+.header {
+  padding: 5px 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.header table {
+  flex-grow: 1;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+td {
+  margin: 10px;
+  padding: 10px;
+}
+
+span.name, .score {
+  color: #fafafa;
+}
+
+.header .gamebuttons, .gamestatus {
+  width: 150px;
+}
+
+.gamestatus h4 {
+  color: #fafafa;
+}
+
+.gamebuttons {
+  padding: 15px 10px 5px 10px;
+  margin: -5px -10px -5px 10px;
+  background: #2f2f2f;
+  border-radius: 0 15px 15px 0;
+}
+
+.gamebuttons button {
+  margin: 8px 5px;
+  background-color: #222;
+  border-radius: 5px;
+  padding: 7px 8px;
+  border: none;
+  color: #999;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-shadow: none;
+  text-transform: uppercase;
+  outline: none;
+
+  &:hover {
+    background: #4b71b5;
+    color: #fafafa;
+    cursor: pointer;
+  }
 }
 
 .board {
@@ -91,20 +155,5 @@ main {
     border-radius: 100%;
     width: (60/100)*120px;
     height: (60/100)*120px;
-  }
-}
-
-@media (min-width: 850px) {
-  .content {
-    display: flex;
-    height: 100%;
-  }
-
-  .scoreboard {
-    height: 100vh;
-  }
-
-  .gameboard {
-    height: 100vh;
   }
 }

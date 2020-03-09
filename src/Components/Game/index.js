@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { GameBoard } from '@Components/GameBoard'
+import { GameControlPanel } from '@Components/GameControlPanel'
 
 const winCombination = [
   [0, 1, 2],
@@ -42,6 +43,58 @@ export class Game extends Component {
       this.switchSign()
       if (this.state.isSinglePlayer) this.nonPlayerTurn()
     }, 200)
+  }
+
+  newGameClickHandler = e => {
+    e.preventDefault()
+    this.setState(prevState => {
+      const temp = Object.assign({}, initialState,
+        {
+          players: prevState.players,
+          isSinglePlayer: prevState.isSinglePlayer
+        })
+      return temp
+    })
+  }
+
+  resetClickHandler = e => {
+    e.preventDefault()
+    this.setState(prevState => {
+      return Object.assign({}, initialState,
+        { 
+          player: [ 
+            {name: 'Player1', score: 0 },
+            {name: 'Player2', score: 0 }
+          ]
+        })
+    })
+  }
+
+  settingsClickHandler = e => {
+    e.preventDefault()
+    this.setState(prevState => {
+      return {
+        settingsHidden: !prevState.settingsHidden
+      }
+    })
+  }
+
+  switchModeHandler = () => {
+    e.preventDefault()
+    this.setState(prevState => {
+      return {
+        isSinglePlayer: !prevState.isSinglePlayer
+      }
+    })
+  }
+
+  nameChangeHandler = e => {
+    const currentPlayer = e.target.id === 'player1name' ? 0 : 1
+    let temp = this.state.players.slice()
+    temp[currentPlayer].name = e.target.value
+    this.setState(prevState => {
+      return temp
+    })
   }
 
   switchSign = () => {
@@ -111,7 +164,7 @@ export class Game extends Component {
       // Check win Combination
       if (board[winCombination[i][0]] === board[winCombination[i][1]] &&
         board[winCombination[i][0]] === currentSign &&
-        board[winCombination[i]] === null) {
+        board[winCombination[i][2]] === null) {
         targetCell = winCombination[i][2]
       }
       if (board[winCombination[i][1]] === board[winCombination[i][2]] &&
@@ -185,7 +238,17 @@ export class Game extends Component {
       <main>
         <div className="content">
           <div className="scoreboard">
-            <h1>This is scoreboard</h1>
+            <GameControlPanel
+              players={this.state.players}
+              isSinglePlayer={this.state.isSinglePlayer}
+              status={this.state.status}
+              settingsHidden={this.state.settingsHidden}
+              nameChangeHandler={this.nameChangeHandler}
+              switchModeHandler={this.switchModeHandler}
+              newGameClickHandler={this.newGameClickHandler}
+              settingsClickHandler={this.settingsClickHandler}
+              resetClickHandler={this.resetClickHandler}
+            />
           </div>
           <div className="gameboard">
             <GameBoard 
