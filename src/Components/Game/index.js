@@ -240,9 +240,7 @@ export class Game extends Component {
           <div className="scoreboard">
             <GameControlPanel
               players={this.state.players}
-              isSinglePlayer={this.state.isSinglePlayer}
               status={this.state.status}
-              settingsHidden={this.state.settingsHidden}
               nameChangeHandler={this.nameChangeHandler}
               switchModeHandler={this.switchModeHandler}
               newGameClickHandler={this.newGameClickHandler}

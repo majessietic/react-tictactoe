@@ -7,11 +7,9 @@ export const GameControlPanel = (props) => {
       <Header
         players={props.players}
         status={props.status}
-        settingsHidden={props.settingsHidden}
         settingsClickHandler={props.settingsClickHandler}
         switchModeHandler={props.switchModeHandler}
         newGameClickHandler={props.newGameClickHandler}
-        nameChangeHandler={props.nameChangeHandler}
         resetClickHandler={props.resetClickHandler}
       />
     </div>

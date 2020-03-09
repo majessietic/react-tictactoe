@@ -10,8 +10,8 @@ export const Header = (props) => {
         <tbody>
           {props.players.map((player, i) => (
             <tr key={i}>
-              <td><span className='name'>{player.name}:</span></td>
-              <td><span className='score'>{player.score}</span></td>
+              <td><span>{player.name}:</span></td>
+              <td><span>{player.score}</span></td>
             </tr>
           ))}
         </tbody>
