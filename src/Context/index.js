@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-import { GameBoard } from '@Components/GameBoard'
-import { GameControlPanel } from '@Components/GameControlPanel'
+import React, { Component, createContext } from 'react'
 
 const winCombination = [
   [0, 1, 2],
@@ -24,10 +22,12 @@ const initialState = {
     { name: 'Player2', score: 0 }
   ],
   currentPlayer: 0,
-  status: ''
+  status: 'Click to Start'
 }
 
-export class Game extends Component {
+export const GameContext = createContext()
+
+export class GameContextProvider extends Component {
   constructor() {
     super()
     this.state = initialState
@@ -80,7 +80,6 @@ export class Game extends Component {
   }
 
   switchModeHandler = () => {
-    e.preventDefault()
     this.setState(prevState => {
       return {
         isSinglePlayer: !prevState.isSinglePlayer
@@ -228,34 +227,30 @@ export class Game extends Component {
     if (board[4] === null) return 4
     else {
       for (let i = 0; i <board.length; i++) {
-        if (board[j] === null) return i
+        if (board[i] === null) return i
       }
     }
   }
 
   render () {
     return (
-      <main>
-        <div className="content">
-          <div className="scoreboard">
-            <GameControlPanel
-              players={this.state.players}
-              status={this.state.status}
-              nameChangeHandler={this.nameChangeHandler}
-              switchModeHandler={this.switchModeHandler}
-              newGameClickHandler={this.newGameClickHandler}
-              settingsClickHandler={this.settingsClickHandler}
-              resetClickHandler={this.resetClickHandler}
-            />
-          </div>
-          <div className="gameboard">
-            <GameBoard 
-              gameCells={this.state.gameCells}
-              onClickHandler={this.onClickHandler}
-            />
-          </div>
-        </div>
-      </main>
+      <GameContext.Provider
+        value={{
+          gameCells: this.state.gameCells,
+          players: this.state.players,
+          isSinglePlayer: this.state.isSinglePlayer,
+          status: this.state.status,
+          settingsHidden: this.state.settingsHidden,
+          nameChangeHandler: this.nameChangeHandler,
+          switchModeHandler: this.switchModeHandler,
+          newGameClickHandler: this.newGameClickHandler,
+          resetClickHandler: this.resetClickHandler,
+          settingsClickHandler: this.settingsClickHandler,
+          onClickHandler: this.onClickHandler
+        }}
+      >
+        {this.props.children}
+      </GameContext.Provider>
     )
   }
 }

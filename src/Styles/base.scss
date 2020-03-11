@@ -3,105 +3,112 @@
 }
 
 body {
-  background-color: #f7f7f7;
+  padding: 0;
   margin: 0;
-  height: auto;
-  font-family: 'Lato', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #e6e6ea;
 }
 
-main {
-  max-width: 100vh;
-  margin: auto;
+.app {
+  width: 100%;
+  max-width: 640px;
+  min-width: 360px;
+  margin: 50px auto;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 30px 0px;
 }
 
-.scoreboard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 30vh;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  margin: 0;
-}
-
-.gameboard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70vh;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  margin: 0;
-}
-
-.gamecontrol {
-  background: #333;
-  width: 470px;
-  margin: 20px auto;
-  box-shadow: 0 4px 0 #333;
-  border-radius: 15px;
-}
-
+// Header Ui
 .header {
-  padding: 5px 10px;
   text-align: center;
+  padding: 2rem 0;
+  background-color: #333;
+  color: #fafafa;
   display: flex;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
-.header table {
-  flex-grow: 1;
-  font-size: 1.5em;
-  letter-spacing: 1px;
-  text-align: center;
+.header h1 {
+  font-size: 3rem;
 }
 
-td {
-  margin: 10px;
-  padding: 10px;
-}
+.header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+} 
 
-td span {
-  color: #fafafa;
-}
-
-.header .gamebuttons, .gamestatus {
-  width: 150px;
-}
-
-.gamestatus h4 {
-  color: #fafafa;
-}
-
-.gamebuttons {
-  padding: 15px 10px 5px 10px;
-  margin: -5px -10px -5px 10px;
-  background: #2f2f2f;
-  border-radius: 0 15px 15px 0;
-}
-
-.gamebuttons button {
-  margin: 8px 5px;
-  background-color: #222;
-  border-radius: 5px;
-  padding: 7px 8px;
+.header div button {
+  background-color: inherit;
+  color: #fff;
+  width: 10rem;
   border: none;
-  color: #999;
+  outline: none;
+  padding: 10px 15px;
+  margin: 1rem auto;
+  border-radius: 3px;
+  margin-top: 1rem;
+  font-size: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 15px 0px;
+  text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: bold;
-  text-shadow: none;
-  text-transform: uppercase;
-  outline: none;
+}
 
-  &:hover {
-    background: #4b71b5;
-    color: #fafafa;
-    cursor: pointer;
+.header div button:hover {
+  cursor: pointer;
+}
+
+.header div button:active {
+  box-shadow: none;
+}
+
+@media (max-width: 1400px) {
+  .header {
+    padding: 5px 0 25px;
+  }
+  .header h1{
+    font-size: 2rem;
+    margin-bottom: 0px;
+  }
+  .header ul li {
+    padding: 5px;
+  }
+  .header div button{
+    padding: 8px 12px;
   }
 }
 
-.board {
+@media (max-width: 575px) {
+  .header {
+    padding: 20px 0;
+  }
+  .header h1{
+    font-size: 2rem;
+  }
+}
+
+// End of Header Ui
+
+// Main Ui
+.main {
+  padding: 0px 150px 30px 150px;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.main div.info {
+  color: #fff;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.main div.board {
   width: 360px;
   display: flex;
   align-items: center;
@@ -109,11 +116,73 @@ td span {
   flex-wrap: wrap;
 }
 
-.cells {
-  border: 2px solid #000;
-  width: 120px;
-  height: 120px;
+
+@media (max-width: 1400px) {
+  .main {
+    padding: 0px 120px;
+  }
+  .main .info {
+    padding: 20px 0;
+    font-size: 1.2rem;
+  }
+  .main .board {
+    font-size: 3rem;
+    line-height: 3.3rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .main {
+    padding: 0px 50px;
+  }
+}
+
+// End of Main Ui
+
+// Footer Ui
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #000;
+  padding: 20px;
   display: flex;
+  justify-content: space-between;
+}
+
+.footer a {
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  bottom: -4px;
+  background-color: #fff;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.footer a:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+// End of Footer Ui
+
+// Buttons Ui
+
+.cell {
+  border: 1px solid #fff;
+  background: #000;
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  outline: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -123,8 +192,8 @@ td span {
     content: '';
     display: inline-block;
     position: absolute;
-    height: 120px;
-    width: 120px;
+    height: 6px;
+    width: 6px;
     transition: .3s;
   }
 
@@ -133,27 +202,42 @@ td span {
   }
 }
 
-.cells.x-marked {
+// Button Ui or Cells
+.cell.x-marked {
   &::after {
     background: #0a0;
-    height: (60/100)*120px;
+    height: (60/100)*6rem;
     width: 3px;
     transform: rotateZ(-45deg);
   }
 
   &::before {
     background: #0a0;
-    height: (60/100)*120px;
+    height: (60/100)*6rem;
     width: 3px;
     transform: rotateZ(45deg);
   }
 }
 
-.cells.o-marked {
+.cell.o-marked {
   &::after {
     border: 4px solid #a00;
     border-radius: 100%;
-    width: (60/100)*120px;
-    height: (60/100)*120px;
+    width: (60/100)*6rem;
+    height: (60/100)*6rem;
+  }
+}
+// end of Button Ui
+
+@media (max-width: 1400px) {
+  .app {
+    max-width: 500px;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 575px) {
+  .app {
+    margin-top: 0px;
   }
 }

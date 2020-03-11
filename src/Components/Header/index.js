@@ -1,29 +1,17 @@
-import React from 'react'
-import { GameButtons } from '@Components/GameButtons'
-import { GameStatus } from '@Components/GameStatus'
+import React, { useContext } from 'react'
+import { GameContext } from '@Context'
 
-export const Header = (props) => {
+export const Header = () => {
+  const { newGameClickHandler, resetClickHandler } = useContext(GameContext)
+
   return (
-    <div className="header">
-      <GameStatus status={props.status} />
-      <table>
-        <tbody>
-          {props.players.map((player, i) => (
-            <tr key={i}>
-              <td><span>{player.name}:</span></td>
-              <td><span>{player.score}</span></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <GameButtons
-        settingsHidden={props.settingsHidden}
-        settingsClickHandler={props.settingsClickHandler}
-        switchModeHandler={props.switchModeHandler}
-        newGameClickHandler={props.newGameClickHandler}
-        nameChangeHandler={props.nameChangeHandler}
-        resetClickHandler={props.resetClickHandler}
-      />
-    </div>
+    <header className="header">
+      <h1>Tic Tac Toe</h1>
+
+      <div>
+        <button onClick={newGameClickHandler}>New Game</button>
+        <button onClick={resetClickHandler}>Reset</button>
+      </div>
+    </header>
   )
 }

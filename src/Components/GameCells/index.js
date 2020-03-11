@@ -11,7 +11,7 @@ export const GameCells = ({ value, id, onClickHandler }) => {
 
   return (
     <button 
-      className={`cells ${clsName}`}
+      className={`cell ${clsName}`}
       id={id}
       onClick={onClickHandler}
     ></button>
