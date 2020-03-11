@@ -18,8 +18,8 @@ const initialState = {
   isGameOver: false,
   settingsHidden: true,
   players: [
-    { name: 'Player1', score: 0 },
-    { name: 'Player2', score: 0 }
+    { name: 'Player', score: 0 },
+    { name: 'Jessie', score: 0 }
   ],
   currentPlayer: 0,
   status: 'Click to Start'
