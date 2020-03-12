@@ -48,12 +48,12 @@ export class GameContextProvider extends Component {
   newGameClickHandler = e => {
     e.preventDefault()
     this.setState(prevState => {
-      const temp = Object.assign({}, initialState,
+      const newGame = Object.assign({}, initialState,
         {
           players: prevState.players,
           isSinglePlayer: prevState.isSinglePlayer
         })
-      return temp
+      return newGame
     })
   }
 
@@ -90,32 +90,26 @@ export class GameContextProvider extends Component {
   changeStatus = message => {
     this.setState(prevState => {
       return {
-        status: message
+        status: prevState.status = message
       }
     })
   }
 
-  changeCellValue = n => {
-    const promise = new Promise((resolve, reject) => {
+  changeCellValue = async n => {
+    await new Promise((resolve, reject) => {
       this.setState(prevState => {
-        let newState = [ ...prevState.gameCells ]
+        let newState = [...prevState.gameCells]
         newState[n] = this.state.currentSign
         return {
           gameCells: newState,
           totalMoves: prevState.totalMoves + 1
         }
-      })
+      }, () => this.calculateWinner())
       resolve()
     })
-      .then(() => {
-        this.calculateWinner()
-      })
-      .then(() => {
-        if (this.state.totalMoves === 9) {
-          this.checkDraw()
-        }
-      })
-    console.log(`${this.state.players[this.state.currentPlayer].name}`)
+    if (this.state.totalMoves === 9) {
+      this.checkDraw()
+    }
   }
 
   calculateWinner = () => {
@@ -128,8 +122,7 @@ export class GameContextProvider extends Component {
         const tempPlayers = [ ...this.state.players]
         tempPlayers[this.state.currentPlayer].score++
         this.setState({
-          isGameOver: true,
-          player: tempPlayers
+          isGameOver: true
         })
       }
     }
