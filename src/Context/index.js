@@ -13,10 +13,10 @@ const winCombination = [
 
 const initialState = {
   gameCells: Array(9).fill(null),
-  isSinglePlayer: true,
+  isSinglePlayer: false,
   currentSign: 'X',
   isGameOver: false,
-  settingsHidden: true,
+  totalMoves: 0,
   players: [
     { name: 'Player', score: 0 },
     { name: 'Jessie', score: 0 }
@@ -70,29 +70,11 @@ export class GameContextProvider extends Component {
     })
   }
 
-  settingsClickHandler = e => {
-    e.preventDefault()
-    this.setState(prevState => {
-      return {
-        settingsHidden: !prevState.settingsHidden
-      }
-    })
-  }
-
   switchModeHandler = () => {
     this.setState(prevState => {
       return {
         isSinglePlayer: !prevState.isSinglePlayer
       }
-    })
-  }
-
-  nameChangeHandler = e => {
-    const currentPlayer = e.target.id === 'player1name' ? 0 : 1
-    let temp = this.state.players.slice()
-    temp[currentPlayer].name = e.target.value
-    this.setState(prevState => {
-      return temp
     })
   }
 
@@ -114,11 +96,26 @@ export class GameContextProvider extends Component {
   }
 
   changeCellValue = n => {
-    this.setState(prevState => {
-      let newState = [ ...prevState.gameCells ]
-      newState[n] = this.state.currentSign
-      return { gameCells: newState }
-    }, () => this.calculateWinner() )
+    const promise = new Promise((resolve, reject) => {
+      this.setState(prevState => {
+        let newState = [ ...prevState.gameCells ]
+        newState[n] = this.state.currentSign
+        return {
+          gameCells: newState,
+          totalMoves: prevState.totalMoves + 1
+        }
+      })
+      resolve()
+    })
+      .then(() => {
+        this.calculateWinner()
+      })
+      .then(() => {
+        if (this.state.totalMoves === 9) {
+          this.checkDraw()
+        }
+      })
+    console.log(`${this.state.players[this.state.currentPlayer].name}`)
   }
 
   calculateWinner = () => {
@@ -130,20 +127,19 @@ export class GameContextProvider extends Component {
         this.changeStatus(`${this.state.players[this.state.currentPlayer].name} is the winner`)
         const tempPlayers = [ ...this.state.players]
         tempPlayers[this.state.currentPlayer].score++
-        this.setState(prevState => {
-          return {
-            isGameOver: true,
-            player: tempPlayers
-          }
-        }, () => {return})
+        this.setState({
+          isGameOver: true,
+          player: tempPlayers
+        })
       }
     }
-    if (board.every(i => i !== null)) {
-      this.changeStatus('It is a draw!')
+  }
+
+  checkDraw = () => {
+    if (!this.state.isGameOver) {
+      this.changeStatus('It\'s a draw!')
       this.setState(prevState => {
-        return {
-          isGameOver: true
-        }
+        isGameOver: prevState.isGameOver = true
       })
     }
   }
@@ -240,12 +236,9 @@ export class GameContextProvider extends Component {
           players: this.state.players,
           isSinglePlayer: this.state.isSinglePlayer,
           status: this.state.status,
-          settingsHidden: this.state.settingsHidden,
-          nameChangeHandler: this.nameChangeHandler,
           switchModeHandler: this.switchModeHandler,
           newGameClickHandler: this.newGameClickHandler,
           resetClickHandler: this.resetClickHandler,
-          settingsClickHandler: this.settingsClickHandler,
           onClickHandler: this.onClickHandler
         }}
       >
