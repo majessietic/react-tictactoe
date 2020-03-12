@@ -13,7 +13,7 @@ const winCombination = [
 
 const initialState = {
   gameCells: Array(9).fill(null),
-  isSinglePlayer: false,
+  isSinglePlayer: true,
   currentSign: 'X',
   isGameOver: false,
   totalMoves: 0,
@@ -109,6 +109,9 @@ export class GameContextProvider extends Component {
     })
     if (this.state.totalMoves === 9) {
       this.checkDraw()
+    }
+    if (!this.state.isGameOver) {
+      this.switchSign
     }
   }
 
