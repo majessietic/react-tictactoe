@@ -13,9 +13,9 @@ export const Footer = () => {
       </a>
       <div className='row'>
         <div className='radio-switch'>
-          <input type='radio' name='pvp' checked={!isSinglePlayer} id='pvp' onClick={switchModeHandler} />
+          <input type='radio' name='pvp' checked={!isSinglePlayer} id='pvp' onClick={switchModeHandler} readOnly />
           <label htmlFor='pvp'>PvP</label>
-          <input type='radio' name='pve' checked={isSinglePlayer} id='pve' onClick={switchModeHandler} />
+          <input type='radio' name='pve' checked={isSinglePlayer} id='pve' onClick={switchModeHandler} readOnly />
           <label htmlFor='pve'>PvE</label>
         </div>
       </div>
