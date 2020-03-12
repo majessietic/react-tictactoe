@@ -62,9 +62,9 @@ export class GameContextProvider extends Component {
     this.setState(prevState => {
       return Object.assign({}, initialState,
         { 
-          player: [ 
-            {name: 'Player1', score: 0 },
-            {name: 'Player2', score: 0 }
+          players: [ 
+            {name: 'Player', score: 0 },
+            {name: 'Jessie', score: 0 }
           ]
         })
     })
